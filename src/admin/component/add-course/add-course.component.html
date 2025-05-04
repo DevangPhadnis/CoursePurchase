@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>{{ header }}</h1>
+<mat-dialog-content>
+    <form [formGroup]="course">
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="required-field">Course Title</mat-label>
+                    <input type="text" matInput formControlName="courseTitle">
+                    <mat-error *ngIf="course?.controls?.courseTitle?.errors?.['required'] 
+                && course?.controls?.courseTitle?.touched">
+                        This is a required field
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Course Description</mat-label>
+                    <input type="text" matInput formControlName="courseDescription">
+                    <mat-error *ngIf="course?.controls?.courseDescription?.errors?.['required'] 
+                && course?.controls?.courseDescription?.touched">
+                        This is a required field
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="required-field">Course Genre</mat-label>
+                    <input type="text" matInput formControlName="courseGenre">
+                    <mat-error *ngIf="course.controls?.courseGenre?.errors?.['required'] 
+                && course.controls?.courseGenre?.touched">
+                        This is a required field
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="required-field">Thumbnail URL</mat-label>
+                    <input type="text" matInput formControlName="thumbnailUrl">
+                    <mat-error *ngIf="course.controls?.thumbnailUrl?.errors?.['required'] 
+                && course.controls?.thumbnailUrl?.touched">
+                        This is a required field
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="required-field">Course URL</mat-label>
+                    <input type="text" matInput formControlName="courseUrl">
+                    <mat-error *ngIf="course.controls?.courseUrl?.errors?.['required'] 
+                && course.controls?.courseUrl?.touched">
+                        This is a required field
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="col-md-4">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label class="required-field">Course Price</mat-label>
+                    <input type="text" matInput formControlName="coursePrice">
+                    <mat-error *ngIf="course.controls?.coursePrice?.errors?.['required'] 
+                && course.controls?.coursePrice?.touched">
+                        This is a required field
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button *ngIf="showSubmitButton" class="me-2" mat-raised-button color="primary" [disabled]="course.invalid" (click)="onSubmit()">
+        Submit
+    </button>
+    <button class="me-2" mat-raised-button color="primary" (click)="onClose()">Close</button>
+</mat-dialog-actions>

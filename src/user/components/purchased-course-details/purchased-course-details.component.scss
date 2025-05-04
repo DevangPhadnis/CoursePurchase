@@ -1,0 +1,119 @@
+/* 1. Page Container */
+.page-container {
+    max-width: 1300px; /* Fixed page width for perfect centering */
+    margin: 0 auto; /* Center horizontally */
+    padding: 20px;
+}
+
+/* 2. Products Grid Container */
+.products-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* Space between cards */
+    justify-content: center; /* Always left aligned */
+}
+
+/* 3. Individual Product Card */
+.product-card {
+    background: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    width: 281px; /* Fixed width cards */
+    flex: 0 0 auto; /* Prevent stretching */
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.product-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* 4. Image container inside card */
+.product-image {
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+    border-bottom: 1px solid #eee;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.05);
+}
+
+/* 5. Product Details Section */
+.product-details {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+/* 6. Title and Price in same line */
+.title-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+/* 7. Genre below Title-Price */
+.genre {
+    font-size: 0.85rem;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+/* 8. Buy Now Button */
+.buy-button {
+    background: transparent !important;
+    color: #333 !important;
+    border: 1px solid #333 !important;
+    border-radius: 6px !important;
+    padding: 6px 12px !important;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.buy-button:hover {
+    background: #333 !important;
+    color: #fff !important;
+}
+
+/* 9. Paginator Container */
+.paginator-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+/* 10. Minor fix for p-card body (PrimeNG override) */
+::ng-deep .p-card .p-card-body {
+    padding: 0.85rem !important;
+}
+
+/* 11. Responsive for Mobile */
+@media (max-width: 768px) {
+    .products-container {
+        justify-content: center; /* Center cards on small screens */
+    }
+
+    .product-card {
+        width: 100%; /* Full width card on mobile */
+        max-width: 320px; /* Limit max width even on mobile */
+    }
+}

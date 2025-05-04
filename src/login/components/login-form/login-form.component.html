@@ -1,0 +1,46 @@
+<div class="login-wrapper d-flex align-items-center justify-content-center">
+  <div class="login-box shadow-lg rounded p-4 bg-white">
+    
+    <!-- EMS Title -->
+    <h2 class="text-center mb-4 ems-title">Skill Edge</h2>
+
+    <form [formGroup]="login" class="w-100">
+      <!-- Username -->
+      <div class="mb-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label class="required-field">UserName</mat-label>
+          <input type="text" matInput formControlName="username" />
+          <mat-error *ngIf="login?.get('username')?.errors?.['required'] && login?.controls?.username?.touched">
+            This is a required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-4">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label class="required-field">Password</mat-label>
+          <input [type]="hidePassword ? 'password' : 'text'" matInput formControlName="password"
+            (contextmenu)="$event.preventDefault()"
+            (copy)="$event.preventDefault()"
+            (cut)="$event.preventDefault()"
+            (paste)="$event.preventDefault()" />
+          <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
+            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+          <mat-error *ngIf="login?.get('password')?.errors?.['required'] && login?.controls?.password?.touched">
+            This is a required field
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <!-- Login Button -->
+      <div class="button-row mb-3 text-end">
+        <button mat-raised-button color="primary" (click)="onLogin()" [disabled]="login.invalid">
+          Login
+        </button>
+      </div>
+      <div class="g_id_signin"></div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Course Details">
+        <div class="col-md-12 mt-2 text-end">
+            <button mat-raised-button class="me-2" color="primary" (click)="addCourse()">
+                <mat-icon>add</mat-icon>
+                Add New Course
+            </button>
+        </div>
+        <div class="mt-5">
+            <ngx-datatable
+                class="styled-table"
+                [rows]="filteredRows"
+                [columns]="columns"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [scrollbarH]="true"
+                [limit]="10">
+                <ngx-datatable-column name="Course Title">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.tile }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course Description">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.description }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course Genre">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.genre }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Thumbnail URL">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <a href="#" (click)="onThumbnailClick($event, row)">Thumbnail URL</a>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course URL">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <a href="#" (click)="onClick($event, row)">Course Url</a>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course Price">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.coursePrice }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course Creation Date">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.createdDate }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Action">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <mat-icon style="cursor: pointer;" (click)="onDelete(row)">delete</mat-icon>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,92 @@
+::ng-deep .styled-table {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+
+    .datatable-header {
+        background-color: #f7f9fc;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 13px;
+        color: #333;
+    }
+
+    .datatable-header-cell {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+        background: #f1f5f9;
+        text-align: center;
+        font-weight: bolder;
+    }
+
+    .datatable-body-row {
+        transition: background-color 0.3s ease;
+    }
+
+    .datatable-body-row:hover {
+        background-color: #e6f4ff;
+    }
+
+    .datatable-body-cell {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .datatable-body-row:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .datatable-footer {
+        background: #fafafa;
+        border-top: 1px solid #ddd;
+    }
+
+    .datatable-footer .page-count {
+        font-size: 13px;
+        color: #555;
+        text-align: right;
+        padding-right: 10px;
+    }
+
+    .datatable-footer .datatable-pager a {
+        padding: 5px 10px;
+        margin: 0 2px;
+        border-radius: 4px;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .datatable-footer .datatable-pager a.active {
+        background-color: #007bff;
+        color: #fff;
+    }
+}
+
+::ng-deep .badge-active {
+    background-color: #d1f7d6;
+    color: green;
+    font-weight: 600;
+    height: 20px;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: inline-block;
+    min-width: 70px;
+    text-align: center;
+}
+
+::ng-deep .badge-inactive {
+    background-color: #fcdede;
+    color: #c62828;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    display: inline-block;
+    min-width: 70px;
+    text-align: center;
+}

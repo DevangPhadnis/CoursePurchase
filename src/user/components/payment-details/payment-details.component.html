@@ -1,0 +1,65 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="Payment Details">
+        <div class="mt-5">
+            <ngx-datatable
+                class="styled-table"
+                [rows]="filteredRows"
+                [columnMode]="'force'"
+                [headerHeight]="50"
+                [footerHeight]="50"
+                [rowHeight]="'auto'"
+                [scrollbarH]="true"
+                [limit]="10">
+                <ngx-datatable-column name="Course Name">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.title }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course Description">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.description }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Course Genre">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.genre }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Transaction Id">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.transactionId }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Amount">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.transactionAmount }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Mode of Payment">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.paymentMode }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Payment Date">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{ row.paymentDate }}
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Download Payment Receipt">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                        <a href="#" (click)="onDownloadClick($event, row)">Download</a>
+                    </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Status">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      <span [ngClass]="{
+                        'badge-active': row.status == 'SUCCESS',
+                        'badge-inactive': row.status == 'Failed'
+                      }">
+                      </span>
+                    </ng-template>
+                </ngx-datatable-column>
+            </ngx-datatable>
+        </div>
+    </mat-tab>
+</mat-tab-group>

@@ -1,0 +1,31 @@
+<ng-container *ngIf="showCharts">
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="mb-4 p-8">
+                <p-card header="Revenue By Genre">
+                    <p class="m-0">
+                        <app-line-chart></app-line-chart>
+                    </p>
+                </p-card>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="mb-4 p-8">
+                <p-card header="Sales by Genre">
+                    <p class="m-0">
+                        <app-pie-chart></app-pie-chart>
+                    </p>
+                </p-card>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="mb-4 p-8">
+            <p-card header="Top Purchases">
+                <p class="m-0">
+                    <app-bar-chart></app-bar-chart>
+                </p>
+            </p-card>
+        </div>
+    </div>
+</ng-container>

@@ -1,0 +1,6 @@
+<ng-container *ngIf="showCharts">
+    <div style="display: block;">
+        <canvas baseChart [data]="revenueByGenreData" [type]="revenueByGenreType" [options]="chartOptions">
+        </canvas>
+    </div>
+</ng-container>

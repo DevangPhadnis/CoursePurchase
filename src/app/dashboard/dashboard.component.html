@@ -1,0 +1,24 @@
+<div class="dashboard-container" [class.collapsed]="isSidebarCollapsed">
+    <div class="sidebar">
+        <button class="toggle-btn" (click)="toggleSidebar()">
+            <mat-icon>{{ isSidebarCollapsed ? 'menu' : 'close' }}</mat-icon>
+        </button>
+        
+        <div class="menu" *ngIf="!isSidebarCollapsed">
+            <h2 align="center"></h2>
+            <ul class="nav-buttons">
+                <li><a *ngIf="role == 'ADMIN'" class="cursor-pointer" (click)="onRedirect($event, 'home')"> <mat-icon>home</mat-icon> Home</a></li>
+                <li><a *ngIf="role == 'ADMIN'" class="cursor-pointer" (click)="onRedirect($event, 'courseDetail')"> <mat-icon>menu_book</mat-icon> Course List</a></li>
+                <li><a *ngIf="role == 'USER'" class="cursor-pointer" (click)="onRedirect($event, 'userDetail')"><mat-icon>person</mat-icon> User Details</a></li>
+                <li><a *ngIf="role == 'USER'" class="cursor-pointer" (click)="onRedirect($event, 'courseDetailUser')"><mat-icon>menu_book</mat-icon> Course List</a></li>
+                <li><a *ngIf="role == 'USER'" class="cursor-pointer" (click)="onRedirect($event, 'courseDetailPurchased')"><mat-icon>menu_book</mat-icon> Purchased Courses</a></li>
+                <li><a *ngIf="role == 'USER'" class="cursor-pointer" (click)="onRedirect($event, 'paymentDetails')"><mat-icon>payments</mat-icon> Payment Details</a></li>
+                <li class="logout"><a class="cursor-pointer" (click)="onRedirect($event, 'logout')"><mat-icon>exit_to_app</mat-icon>Logout</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

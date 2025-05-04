@@ -1,0 +1,118 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+    <mat-tab label="User Details">
+        <div class="mt-5">
+            <form [formGroup]="user">
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">UserName</mat-label>
+                            <input type="text" matInput formControlName="username">
+                            <mat-error *ngIf="user?.controls?.username?.errors?.['required'] 
+                        && user?.controls?.username?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">User Full Name</mat-label>
+                            <input type="text" matInput formControlName="userFullName">
+                            <mat-error *ngIf="user?.controls?.userFullName?.errors?.['required'] 
+                        && user?.controls?.userFullName?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div> 
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>User Email Id</mat-label>
+                            <input type="text" matInput formControlName="userEmailId">
+                            <mat-error *ngIf="user?.controls?.userEmailId?.errors?.['required'] 
+                        && user?.controls?.userEmailId?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">Gender</mat-label>
+                            <mat-select formControlName="gender">
+                                <mat-option *ngFor="let gender of genderList"
+                                    [value]="gender?.['genderId']">
+                                    {{gender?.['genderName']}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="user?.controls?.gender?.errors?.['required'] 
+                        && user?.controls?.gender?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">User Mobile Number</mat-label>
+                            <input type="text" matInput formControlName="userMobileNumber" maxlength="10">
+                            <mat-error *ngIf="user?.controls?.userMobileNumber?.errors?.['required'] 
+                        && user?.controls?.userMobileNumber?.touched">
+                                This is a required field
+                            </mat-error>
+                            <mat-error *ngIf="user?.controls?.userMobileNumber?.errors?.['pattern'] 
+                        && user?.controls?.userMobileNumber?.touched">
+                                Please Enter a Valid Input
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">User Date of Birth</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="userDateOfBirth">
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="user?.controls?.userDateOfBirth?.errors?.['required'] 
+                        && user?.controls?.userDateOfBirth?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">User Address 1</mat-label>
+                            <input type="text" matInput formControlName="userAddressOne">
+                            <mat-error *ngIf="user?.controls?.userAddressOne?.errors?.['required'] 
+                        && user?.controls?.userAddressOne?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">User Address 2</mat-label>
+                            <input type="text" matInput formControlName="userAddressTwo">
+                            <mat-error *ngIf="user?.controls?.userAddressTwo?.errors?.['required'] 
+                        && user?.controls?.userAddressTwo?.touched">
+                                This is a required field
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label class="required-field">User Address 3</mat-label>
+                            <input type="text" matInput formControlName="userAddressThree">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div align="end" class="mt-3">
+            <button class="me-2" mat-raised-button color="primary" [disabled]="user.invalid" (click)="onSubmit()">
+                Update
+            </button>
+        </div>
+    </mat-tab>
+</mat-tab-group>

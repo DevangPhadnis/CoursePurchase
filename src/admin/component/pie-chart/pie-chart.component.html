@@ -1,0 +1,6 @@
+<ng-container *ngIf="showCharts">
+    <div style="display: block;">
+        <canvas baseChart [data]="pieChartData" [options]="pieChartOptions" [type]="pieChartType">
+        </canvas>
+    </div>
+</ng-container>
