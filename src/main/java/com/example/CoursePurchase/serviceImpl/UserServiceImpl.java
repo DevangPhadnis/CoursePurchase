@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
             jsonObject.put("currency", "INR");
             jsonObject.put("receipt", "txn_" + System.currentTimeMillis());
 
-            RazorpayClient razorpayClient = new RazorpayClient("rzp_test_EGJtpbScjzPKf8", "yGgd6Q6vYcO16QJblLkhss6Y");
+            RazorpayClient razorpayClient = new RazorpayClient("abc", "abc");
             Order order = razorpayClient.orders.create(jsonObject);
             return order;
         } catch (Exception e) {
@@ -178,7 +178,7 @@ public class UserServiceImpl implements UserService {
     public Integer verifyPayment(String orderId, String paymentId, String signature, String username, Long courseId, Double amount) {
         try {
             String payload = orderId + "|" + paymentId;
-            String expectedSignature = hmacSha256(payload, "yGgd6Q6vYcO16QJblLkhss6Y");
+            String expectedSignature = hmacSha256(payload, "abc");
 
             if(expectedSignature.equals(signature)) {
                 UserAuth userAuth = userRepository.findByUserName(username);
