@@ -109,7 +109,7 @@ public class AdminController {
     }
 
     @PostMapping("/add-courses")
-    public ResponseEntity<?> addCourses(@RequestBody Courses courses) {
+    public ResponseEntity<?> addCourses(@ModelAttribute Courses courses) {
         Integer result = adminService.addCourse(courses);
         if(result == 1) {
             Response response = new Response();

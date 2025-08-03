@@ -21,4 +21,10 @@ public interface UserService {
     public List<PaymentDTO> fetchPaymentDetails(String username);
 
     public AttachmentDTO fetchAttachmentDetails(Long attachmentId);
+
+    public CourseDTO fetchCourseUrl(Long courseId);
+
+    public Integer saveVideoProgress(Long courseId, Double currentTime, String userName);
+
+    public ProgressDTO fetchVideoProgress(Long courseId, String userName);
 }

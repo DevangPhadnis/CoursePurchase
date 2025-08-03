@@ -5,7 +5,6 @@ import com.example.CoursePurchase.service.UserService;
 import com.razorpay.Order;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -185,6 +184,69 @@ public class UserController {
             response.setStatus("0");
             response.setMessage("Error in fetching Attachment Details");
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/fetch-course-url")
+    public ResponseEntity<?> fetchCourseUrl(@RequestParam Long courseId) {
+        CourseDTO courseDTO = userService.fetchCourseUrl(courseId);
+
+        if(courseDTO != null) {
+            Response response = new Response();
+            response.setData(courseDTO);
+            response.setStatus("1");
+            response.setMessage("Course Url Fetched Successfully");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            Response response = new Response();
+            response.setData(null);
+            response.setStatus("0");
+            response.setMessage("Error in fetching Attachment Details");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/save-progress")
+    public ResponseEntity<?> saveVideoProgress(@RequestParam Long courseId,
+                                               @RequestParam Double currentTime, Principal principal) {
+        String name = principal.getName();
+        Integer videoProgress = userService.saveVideoProgress(courseId, currentTime, name);
+
+        if(videoProgress != null && videoProgress == 1) {
+            Response response = new Response();
+            response.setData(null);
+            response.setStatus("1");
+            response.setMessage("");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            Response response = new Response();
+            response.setData(null);
+            response.setStatus("0");
+            response.setMessage("Error in saving progress details");
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/get-progress")
+    public ResponseEntity<?> fetchVideoProgress(@RequestParam Long courseId, Principal principal) {
+        String userName = principal.getName();
+        ProgressDTO progressDTO = userService.fetchVideoProgress(courseId, userName);
+
+        if(progressDTO != null) {
+            Response response = new Response();
+            response.setData(progressDTO);
+            response.setStatus("1");
+            response.setMessage("");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }
+        else {
+            Response response = new Response();
+            response.setData(progressDTO);
+            response.setStatus("0");
+            response.setMessage("");
+            return new ResponseEntity<>(response, HttpStatus.OK);
         }
     }
 }

@@ -5,6 +5,7 @@ import com.example.CoursePurchase.dao.SessionRepository;
 import com.example.CoursePurchase.dao.UserRepository;
 import com.example.CoursePurchase.models.*;
 import com.example.CoursePurchase.service.AdminService;
+import com.example.CoursePurchase.service.AttachmentService;
 import com.example.CoursePurchase.utils.JWTUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -17,12 +18,15 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.Year;
 import java.util.*;
+import java.util.zip.GZIPInputStream;
 
 @Service
 public class AdminServiceImpl implements AdminService {
@@ -43,6 +47,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private JWTUtils jwtUtils;
+
+    @Autowired
+    private AttachmentService attachmentService;
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
@@ -104,7 +111,23 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public Integer addCourse(Courses course) {
         try {
+
+            Attachment attachment = new Attachment();
+            String fileName = course.getFileBytes().getOriginalFilename();
+            assert fileName != null;
+            int index = fileName.lastIndexOf(".");
+            attachment.setOriginalFileName(fileName);
+            attachment.setContentType(course.getFileBytes().getContentType());
+            if(index != -1) {
+                attachment.setFileExtension(fileName.substring(index));
+            }
+            attachment.setCreatedDate(LocalDateTime.now());
+            byte[] fileByteArray = course.getFileBytes().getBytes();
+            attachment.setContentSize(String.valueOf(course.getFileBytes().getSize()));
+            attachment = attachmentService.uploadAttachment(attachment, fileByteArray);
             course.setCreatedDate(LocalDateTime.now());
+            course.setCourseAttachId(Long.parseLong(attachment.getAttachmentId().toString()));
+
             courseRepository.save(course);
             return 1;
         } catch (Exception e) {

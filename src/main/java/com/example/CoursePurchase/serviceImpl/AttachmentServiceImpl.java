@@ -1,10 +1,8 @@
 package com.example.CoursePurchase.serviceImpl;
 
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
+import com.amazonaws.services.s3.model.*;
 import com.amazonaws.util.IOUtils;
 import com.example.CoursePurchase.dao.AttachmentRepository;
 import com.example.CoursePurchase.models.Attachment;
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
+import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,19 +34,18 @@ public class AttachmentServiceImpl implements AttachmentService {
     private String bucketName;
 
     @Override
-    public Long uploadAttachment(Attachment attachment, byte[] fileDetails) {
+    public Attachment uploadAttachment(Attachment attachment, byte[] fileDetails) {
         try {
             String uuid = UUID.randomUUID().toString();
             String fileName = uuid + "_" + System.currentTimeMillis() + attachment.getFileExtension();
             attachment.setFileName(fileName);
             attachmentRepository.save(attachment);
-            Long attachmentId = attachment.getAttachmentId();
             ObjectMetadata metaData = new ObjectMetadata();
             metaData.setContentLength(Long.parseLong(attachment.getContentSize()));
             metaData.setContentType(attachment.getContentType());
             this.amazonS3.putObject(new PutObjectRequest(bucketName, fileName, new ByteArrayInputStream(fileDetails), metaData));
 
-            return attachmentId;
+            return attachment;
         } catch (Exception e) {
             logger.error("Error Found", e);
             return null;
@@ -75,6 +73,33 @@ public class AttachmentServiceImpl implements AttachmentService {
                     attachmentDTO.setFileBytes(fileContent);
 
                     return attachmentDTO;
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                return null;
+            }
+        } catch (Exception e) {
+            logger.error("Error Found", e);
+            return null;
+        }
+    }
+
+    @Override
+    public String generatePreSignedUrl(Long attachmentId) {
+        Date expiration = new Date(System.currentTimeMillis() + 1000 * 60 * 5);
+        try {
+            if(attachmentId != null) {
+                Optional<Attachment> attachment = attachmentRepository.findById(attachmentId);
+                if(attachment.isPresent()) {
+                    GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName
+                            , attachment.get().getFileName())
+                            .withMethod(HttpMethod.GET)
+                            .withExpiration(expiration);
+
+                    return amazonS3.generatePresignedUrl(generatePresignedUrlRequest).toString();
                 }
                 else {
                     return null;

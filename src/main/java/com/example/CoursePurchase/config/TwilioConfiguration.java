@@ -12,8 +12,6 @@ public class TwilioConfiguration {
     @Value("${twilio.auth.token}")
     private String authToken;
 
-    @Value("${twilio.phone.number}")
-    private String twilioNumber;
 
     public String getAccountSid() {
         return accountSid;
@@ -21,9 +19,5 @@ public class TwilioConfiguration {
 
     public String getAuthToken() {
         return authToken;
-    }
-
-    public String getTwilioNumber() {
-        return twilioNumber;
     }
 }

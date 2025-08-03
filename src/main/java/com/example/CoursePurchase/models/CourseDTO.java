@@ -18,6 +18,8 @@ public class CourseDTO {
 
     private Long totalElements;
 
+    private String preSignedVideoUrl;
+
     public Long getCourseId() {
         return courseId;
     }
@@ -88,5 +90,13 @@ public class CourseDTO {
 
     public void setTotalElements(Long totalElements) {
         this.totalElements = totalElements;
+    }
+
+    public String getPreSignedVideoUrl() {
+        return preSignedVideoUrl;
+    }
+
+    public void setPreSignedVideoUrl(String preSignedVideoUrl) {
+        this.preSignedVideoUrl = preSignedVideoUrl;
     }
 }

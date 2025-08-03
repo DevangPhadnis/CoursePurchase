@@ -5,7 +5,9 @@ import com.example.CoursePurchase.models.AttachmentDTO;
 
 public interface AttachmentService {
 
-    public Long uploadAttachment(Attachment attachment, byte[] fileDetails);
+    public Attachment uploadAttachment(Attachment attachment, byte[] fileDetails);
 
     public AttachmentDTO fetchAttachmentDetails(Long attachmentId);
+
+    public String generatePreSignedUrl(Long attachmentId);
 }

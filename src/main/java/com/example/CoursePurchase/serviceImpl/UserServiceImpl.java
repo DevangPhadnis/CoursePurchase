@@ -1,9 +1,6 @@
 package com.example.CoursePurchase.serviceImpl;
 
-import com.example.CoursePurchase.dao.CourseRepository;
-import com.example.CoursePurchase.dao.PaymentRepository;
-import com.example.CoursePurchase.dao.UserDetailsRepository;
-import com.example.CoursePurchase.dao.UserRepository;
+import com.example.CoursePurchase.dao.*;
 import com.example.CoursePurchase.models.*;
 import com.example.CoursePurchase.service.AttachmentService;
 import com.example.CoursePurchase.service.EmailService;
@@ -24,8 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -56,6 +51,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private TwilioMessageServiceImpl twilioMessageServiceimpl;
+
+    @Autowired
+    private VideoRepository videoRepository;
 
     @Override
     public Integer updateUserDetails(UserDetails userDetails) {
@@ -218,7 +219,7 @@ public class UserServiceImpl implements UserService {
                 attachment.setFileExtension(".pdf");
                 attachment.setCreatedDate(LocalDateTime.now());
 
-                Long attachmentId = attachmentService.uploadAttachment(attachment, generatedPdf);
+                Attachment attachmentDetails = attachmentService.uploadAttachment(attachment, generatedPdf);
 
                 Payment payment = new Payment();
                 payment.setTransactionId(paymentId);
@@ -227,7 +228,7 @@ public class UserServiceImpl implements UserService {
                 payment.setPaymentMode("ONLINE/CARD");
                 payment.setPaymentDate(LocalDateTime.now());
                 payment.setVerified(true);
-                payment.setReceiptAttachmentId(attachmentId);
+                payment.setReceiptAttachmentId(attachmentDetails.getAttachmentId());
                 payment.setRazorpayOrderId(orderId);
                 payment.setRazorpaySignature(signature);
                 payment.setUserAuth(userAuth);
@@ -240,9 +241,18 @@ public class UserServiceImpl implements UserService {
                         "Your payment for the course \"" + (courses.isPresent() ? courses.get().getTitle() : "N/A") + "\" is successful.\n" +
                         "Kindly view the courses in the Purchased Courses section.\n\n" +
                         "Please check the attached Payment Receipt.\n\n" +
-                        "Regards,\nTeam CMS";
+                        "Regards,\nTeam CPS";
 
                 emailService.sendEmail(to, subject, body, fileName, generatedPdf);
+
+                String preSignedUrl = attachmentService.generatePreSignedUrl(attachmentDetails.getAttachmentId());
+                String phoneNumber = userAuth.getUserDetails().getMobileNumber();
+                String message = "Hi " + userAuth.getUserDetails().getFullName() + ",\n\n" +
+                        "Your payment for the course \"" + (courses.isPresent() ? courses.get().getTitle() : "N/A") + "\" is successful for ₹" + amount + ".\n\n" +
+                        "Please find the attached Payment Receipt.\n\n" +
+                        "Thanks,\nTeam CPS";
+                twilioMessageServiceimpl.sendWhatsappMessage(phoneNumber, message, preSignedUrl);
+
                 return 1;
             }
             else {
@@ -275,6 +285,79 @@ public class UserServiceImpl implements UserService {
     public AttachmentDTO fetchAttachmentDetails(Long attachmentId) {
         try {
             return attachmentService.fetchAttachmentDetails(attachmentId);
+        } catch (Exception e) {
+            logger.error("Error Found", e);
+            return null;
+        }
+    }
+
+    @Override
+    public CourseDTO fetchCourseUrl(Long courseId) {
+        try {
+            if(courseId != null) {
+                Optional<Courses> optionalCourses = courseRepository.findById(courseId);
+                if(optionalCourses.isPresent()) {
+                    Long attachId = optionalCourses.get().getCourseAttachId();
+                    String preSignedUrl =  attachmentService.generatePreSignedUrl(attachId);
+                    CourseDTO courseDTO = new CourseDTO();
+                    courseDTO.setPreSignedVideoUrl(preSignedUrl);
+                    courseDTO.setTitle(optionalCourses.get().getTitle());
+                    courseDTO.setDescription(optionalCourses.get().getDescription());
+                    return courseDTO;
+                }
+                else {
+                    return null;
+                }
+            }
+            else {
+                return null;
+            }
+        } catch (Exception e) {
+            logger.error("Error Found", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Integer saveVideoProgress(Long courseId, Double currentTime, String userName) {
+        try {
+            Optional<Courses> courses = courseRepository.findById(courseId);
+            UserAuth userAuth = userRepository.findByUserName(userName);
+            if(courses.isPresent() && userAuth != null) {
+                VideoProgress videoProgress = videoRepository.findByUserAuthAndCourses(userAuth, courses.get())
+                        .orElse(new VideoProgress());
+                videoProgress.setCourses(courses.get());
+                videoProgress.setUserAuth(userAuth);
+                videoProgress.setProgressTime(currentTime);
+                videoProgress.setUpdatedTime(LocalDateTime.now());
+                videoRepository.save(videoProgress);
+
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        } catch (Exception e) {
+            logger.error("Error Found", e);
+            return 0;
+        }
+    }
+
+    @Override
+    public ProgressDTO fetchVideoProgress(Long courseId, String userName) {
+        try {
+            Optional<Courses> courses = courseRepository.findById(courseId);
+            UserAuth userAuth = userRepository.findByUserName(userName);
+
+            if(courses.isPresent() && userAuth != null) {
+                Optional<VideoProgress> videoProgress = videoRepository.findByUserAuthAndCourses(userAuth, courses.get());
+                return videoProgress.map(video -> new ProgressDTO(videoProgress.get().getProgressTime()
+                        , videoProgress.get().getCourses().getCourseId())).
+                        orElse(new ProgressDTO(0.0, videoProgress.get().getCourses().getCourseId()));
+            }
+            else {
+                return null;
+            }
         } catch (Exception e) {
             logger.error("Error Found", e);
             return null;

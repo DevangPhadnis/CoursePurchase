@@ -2,6 +2,7 @@ package com.example.CoursePurchase.models;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,6 +21,10 @@ public class Courses {
     private String genre;
     private String thumbnailUrl;
     private String courseUrl;
+    @Transient
+    private MultipartFile fileBytes;
+
+    private Long courseAttachId;
 
     private LocalDateTime createdDate;
 
@@ -99,5 +104,21 @@ public class Courses {
 
     public void setPaymentList(List<Payment> paymentList) {
         this.paymentList = paymentList;
+    }
+
+    public MultipartFile getFileBytes() {
+        return fileBytes;
+    }
+
+    public void setFileBytes(MultipartFile fileBytes) {
+        this.fileBytes = fileBytes;
+    }
+
+    public Long getCourseAttachId() {
+        return courseAttachId;
+    }
+
+    public void setCourseAttachId(Long courseAttachId) {
+        this.courseAttachId = courseAttachId;
     }
 }
