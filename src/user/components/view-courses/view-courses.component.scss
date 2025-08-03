@@ -1,0 +1,54 @@
+.video-wrapper {
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.course-title {
+  text-align: center;
+  font-size: 28px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.video-player {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.video-player video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.video-meta {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.video-meta h4 {
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #2c3e50;
+}
+
+.video-meta span {
+  font-weight: 600;
+}
+
+.video-meta .description {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.spinner {
+  display: block;
+  margin: 100px auto;
+}

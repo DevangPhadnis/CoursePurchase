@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserService } from 'src/user/service/user.service';
 
 @Component({
@@ -8,7 +9,9 @@ import { UserService } from 'src/user/service/user.service';
 })
 export class PurchasedCourseDetailsComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.loadCourses({ first: 0, rows: this.rowCount });
@@ -35,6 +38,14 @@ export class PurchasedCourseDetailsComponent implements OnInit {
   }
 
   onLearningClick(courseDetails: any): void {
-    window.open(courseDetails?.courseUrl, '_blank');
+    if(courseDetails?.courseUrl) {
+      window.open(courseDetails?.courseUrl, '_blank');
+    }
+    else {
+      const courseDtls = {
+        courseId: courseDetails?.courseId
+      }
+      void this.router.navigate(['/user/view-course'], { queryParams: courseDtls });
+    }
   }
 }

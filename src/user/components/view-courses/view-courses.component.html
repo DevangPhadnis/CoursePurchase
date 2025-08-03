@@ -1,0 +1,25 @@
+<div class="video-wrapper" *ngIf="videoUrl">
+  <h2 class="course-title">{{ courseTitle }}</h2>
+
+  <div class="video-player">
+    <video
+      #videoPlayer
+      [src]="videoUrl"
+      controls
+      preload="auto"
+      (loadedmetadata)="onMetadataLoaded()"
+      (pause)="onPause()"
+      (timeupdate)="onTimeUpdate()">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+
+  <div class="video-meta">
+    <h4>Module: <span>{{ moduleTitle }}</span></h4>
+    <p class="description">
+      {{ description }}
+    </p>
+  </div>
+</div>
+
+<mat-spinner *ngIf="loading" color="primary" class="spinner"></mat-spinner>

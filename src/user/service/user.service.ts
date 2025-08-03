@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -38,5 +38,21 @@ export class UserService {
   dowloadAttachment(attachmentId: any) {
     const params = new HttpParams().set('attachmentId', attachmentId);
     return this.http.get('/user/download-attachment', { params: params });
+  }
+
+  fetchCourseUrl(courseId: number): Observable<any> {
+    const params = new HttpParams().set('courseId', courseId);
+    return this.http.get('/user/fetch-course-url', { params: params });
+  }
+
+  saveProgress(payload: any): Observable<any> {
+    const headers = new HttpHeaders({'X-Skip-Loader': 'true'});
+    const params = new HttpParams().set('courseId', payload.courseId).set('currentTime', payload?.currentTime);
+    return this.http.post('/user/save-progress', null, { params: params, headers: headers });
+  }
+
+  fetchCourseProgress(courseId: number): Observable<any> {
+    const params = new HttpParams().set('courseId', courseId);
+    return this.http.get('/user/get-progress', { params: params });
   }
 }

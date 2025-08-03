@@ -23,7 +23,10 @@ export class AuthInterceptor implements HttpInterceptor {
   private startUrl: String = "http://localhost:8080";
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.loaderService.show()
+    const skipLoader = request.headers.get('X-Skip-Loader') === 'true';
+    if(!skipLoader) {
+      this.loaderService.show();
+    }
     const token = this.authenticationService.getToken();
     const url = request?.url?.startsWith('http') ? request?.url : this.startUrl + request?.url;
     const cloned = request.clone({
@@ -33,11 +36,13 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(cloned).pipe(tap((event: HttpEvent<any>) => {
       if(event instanceof HttpResponse) {
         if(event.status == 200 || event.status == 201) {
-          if(request?.url != '/admin/user-profile') {
+          if(request?.url != '/admin/user-profile' && request?.url != '/user/save-progress' && request?.url != '/user/get-progress') {
             this.messageService.add({ severity: 'success', summary: 'Operation Successful', detail: event.body?.message || "Operation Successful" });
           }
         }
-        this.loaderService.hide();
+        if(!skipLoader) {
+          this.loaderService.hide();
+        }
       }
     }), catchError((error: HttpErrorResponse) => {
       if (error.status === 500 || error.status === 401 || error.status === 403) {
@@ -50,7 +55,9 @@ export class AuthInterceptor implements HttpInterceptor {
           this.authenticationService.logout();
         }
       }
-      this.loaderService.hide();
+      if(!skipLoader) {
+        this.loaderService.hide();
+      }
       return throwError(() => error);
     }));
   }

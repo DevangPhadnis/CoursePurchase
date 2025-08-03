@@ -8,6 +8,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,6 +19,7 @@ import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { PaginatorModule } from 'primeng/paginator';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ViewCoursesComponent } from './components/view-courses/view-courses.component';
 
 
 @NgModule({
@@ -25,7 +27,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     UserDetailsComponent,
     CourseDetailsComponent,
     PurchasedCourseDetailsComponent,
-    PaymentDetailsComponent
+    PaymentDetailsComponent,
+    ViewCoursesComponent
   ],
   imports: [
     CommonModule,
@@ -42,7 +45,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     CardModule,
     ButtonModule,
     PaginatorModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    MatProgressSpinnerModule
   ]
 })
 export class UserModule { }

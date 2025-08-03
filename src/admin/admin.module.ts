@@ -7,6 +7,7 @@ import { BarChartComponent } from './component/bar-chart/bar-chart.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CardModule } from 'primeng/card';
+import { FileUploadModule } from 'primeng/fileupload';
 import { NgChartsModule } from 'ng2-charts';
 import { PaginatorModule } from 'primeng/paginator';
 import { LineChartComponent } from './component/line-chart/line-chart.component';
@@ -53,7 +54,8 @@ import { AddCourseComponent } from './component/add-course/add-course.component'
     MatSelectModule,
     ReactiveFormsModule,
     MatTooltipModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    FileUploadModule
   ]
 })
 export class AdminModule { }

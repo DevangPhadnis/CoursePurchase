@@ -4,6 +4,7 @@ import { UserDetailsComponent } from './components/user-details/user-details.com
 import { CourseDetailsComponent } from './components/course-details/course-details.component';
 import { PurchasedCourseDetailsComponent } from './components/purchased-course-details/purchased-course-details.component';
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
+import { ViewCoursesComponent } from './components/view-courses/view-courses.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'payment-details',
     component: PaymentDetailsComponent
+  },
+  {
+    path: 'view-course',
+    component: ViewCoursesComponent
   },
   {
     path: '',

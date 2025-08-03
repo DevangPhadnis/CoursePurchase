@@ -65,6 +65,27 @@
                 </mat-form-field>
             </div>
         </div>
+        <div class="row">
+            <div class="d-flex align-items-center gap-3">
+                <p-fileUpload
+                  name="video"
+                  mode="basic"
+                  [customUpload]="true"
+                  [auto]="false"
+                  chooseLabel="Choose"
+                  accept="video/*"
+                  icon="pi pi-upload"
+                  (onSelect)="onFileSelected($event)"
+                  [showUploadButton]="false"
+                  [showCancelButton]="false"
+                  [styleClass]="'custom-upload-button'">
+                </p-fileUpload>
+              
+                <span *ngIf="selectedFileName" class="text-gray-700 text-sm">
+                  {{ selectedFileName }}
+                </span>
+            </div>              
+        </div>
     </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
