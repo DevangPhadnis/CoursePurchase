@@ -179,7 +179,7 @@ Example:
 
 
 * **Course Listing**
-<img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/aa609973-f01d-4e41-bf04-4c2fa86d4733" />
+   <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/aa609973-f01d-4e41-bf04-4c2fa86d4733" />
 
 
 * **Purchase Flow**
@@ -193,8 +193,8 @@ Example:
 
 📩 Contact
 
-For any queries, feel free to reach out: **devangphadnis2001@gmail.com**
-- GitHub Profile: **Devang Phadnis**
-- Project LIVE URL: http://ec2-3-82-98-7.compute-1.amazonaws.com/login
-
+For any queries, feel free to reach out
+- Email: **devangphadnis2001@gmail.com**
+- GitHub Profile: [**Devang Phadnis**](https://github.com/DevangPhadnis)
+- GitHub Profile: [**Course Purchase Platform**](http://ec2-3-82-98-7.compute-1.amazonaws.com/login)
 ---
