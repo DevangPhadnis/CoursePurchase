@@ -170,10 +170,6 @@ Make sure you have the following installed/configured:
 
 ## 🎥 Demo / Screenshots
 
-Add screenshots or demo GIFs here to showcase the application.
-
-Example:
-
 * **Login Page**
   <img width="1920" height="1020" alt="image" src="https://github.com/user-attachments/assets/2e4358df-4473-44d5-ad70-4fb2f1d5bd3c" />
 
