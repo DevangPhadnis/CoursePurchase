@@ -194,7 +194,7 @@ Example:
 📩 Contact
 
 For any queries, feel free to reach out: **devangphadnis2001@gmail.com**
-GitHub Profile: **Devang Phadnis**
-Project LIVE URL: http://ec2-3-82-98-7.compute-1.amazonaws.com/login
+- GitHub Profile: **Devang Phadnis**
+- Project LIVE URL: http://ec2-3-82-98-7.compute-1.amazonaws.com/login
 
 ---
