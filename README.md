@@ -192,5 +192,5 @@ Make sure you have the following installed/configured:
 For any queries, feel free to reach out
 - Email: **devangphadnis2001@gmail.com**
 - GitHub Profile: [**Devang Phadnis**](https://github.com/DevangPhadnis)
-- GitHub Profile: [**Course Purchase Platform**](http://ec2-52-7-49-188.compute-1.amazonaws.com:80/login)
+- GitHub Profile: [**Course Purchase Platform**](http://ec2-52-7-49-188.compute-1.amazonaws.com:80)
 ---
