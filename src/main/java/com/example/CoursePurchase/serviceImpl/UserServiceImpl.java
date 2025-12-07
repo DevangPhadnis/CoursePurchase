@@ -13,6 +13,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,6 +58,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private VideoRepository videoRepository;
+
+    @Value("${razorpay.keyId}")
+    private String razorpayKeyId;
+
+    @Value("${razorpay.keySecret}")
+    private String razorpayKeySecret;
 
     @Override
     public Integer updateUserDetails(UserDetails userDetails) {
@@ -166,7 +173,7 @@ public class UserServiceImpl implements UserService {
             jsonObject.put("currency", "INR");
             jsonObject.put("receipt", "txn_" + System.currentTimeMillis());
 
-            RazorpayClient razorpayClient = new RazorpayClient("abc", "abc");
+            RazorpayClient razorpayClient = new RazorpayClient(razorpayKeyId, razorpayKeySecret);
             Order order = razorpayClient.orders.create(jsonObject);
             return order;
         } catch (Exception e) {
@@ -179,7 +186,7 @@ public class UserServiceImpl implements UserService {
     public Integer verifyPayment(String orderId, String paymentId, String signature, String username, Long courseId, Double amount) {
         try {
             String payload = orderId + "|" + paymentId;
-            String expectedSignature = hmacSha256(payload, "abc");
+            String expectedSignature = hmacSha256(payload, razorpayKeySecret);
 
             if(expectedSignature.equals(signature)) {
                 UserAuth userAuth = userRepository.findByUserName(username);
