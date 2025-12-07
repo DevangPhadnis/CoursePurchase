@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
     private messageService: MessageService
   ) {}
   
-  private startUrl: String = "http://localhost:8080";
+  private startUrl: String = "https://course-purchase-app.onrender.com";
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const skipLoader = request.headers.get('X-Skip-Loader') === 'true';

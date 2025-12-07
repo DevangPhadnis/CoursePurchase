@@ -52,7 +52,7 @@ export class CourseDetailsComponent implements OnInit {
     }
     this.userService.createPaymentOrder(orderPayload).subscribe((res: any) => {
       const razorpayOptions = {
-        key: 'rzp_test_EGJtpbScjzPKf8',
+        key: 'rzp_test_f7xNKeXFS8vfFs',
         amount: res.data.amount,
         currency: res.data.currency,
         name: 'Course Purchase System',

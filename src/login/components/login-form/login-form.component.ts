@@ -27,7 +27,7 @@ export class LoginFormComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     google.accounts.id.initialize({
-      client_id: 'abc',
+      client_id: '610901838063-evm464ceddseivd97hv0r1clthffp70a.apps.googleusercontent.com',
       callback: this.handleCredentialResponse.bind(this),
     });
 
